@@ -1,0 +1,51 @@
+import 'dart:io';
+
+class Pessoa {
+  String nome;
+  double peso;
+  double altura;
+
+  Pessoa(this.nome, this.peso, this.altura);
+}
+
+void main() {
+  try {
+    print("Digite o nome da pessoa:");
+    String nome = stdin.readLineSync()!;
+
+    print("Digite o peso (em kg):");
+    double peso = double.parse(stdin.readLineSync()!);
+
+    print("Digite a altura (em metros):");
+    double altura = double.parse(stdin.readLineSync()!);
+
+    Pessoa pessoa = Pessoa(nome, peso, altura);
+    double imc = calcularIMC(pessoa);
+
+    print("\nResultado do IMC para ${pessoa.nome}: $imc");
+
+    if (imc < 16) {
+      print("Classificação: Magreza grave");
+    } else if (imc >= 16 && imc < 17) {
+      print("Classificação: Magreza moderada");
+    } else if (imc >= 17 && imc < 18.5) {
+      print("Classificação: Magreza leve");
+    } else if (imc >= 18.5 && imc < 25) {
+      print("Classificação: Saudável");
+    } else if (imc >= 25 && imc < 30) {
+      print("Classificação: Sobrepeso");
+    } else if (imc >= 30 && imc < 35) {
+      print("Classificação: Obesidade grau I");
+    } else if (imc >= 35 && imc < 40) {
+      print("Classificação: Obesidade grau II (severa)");
+    } else {
+      print("Classificação: Obesidade grau III (mórbida)");
+    }
+  } catch (e) {
+    print("Erro: Insira um valor numérico válido para peso e altura.");
+  }
+}
+
+double calcularIMC(Pessoa pessoa) {
+  return pessoa.peso / (pessoa.altura * pessoa.altura);
+}
